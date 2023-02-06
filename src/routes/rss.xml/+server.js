@@ -27,9 +27,9 @@ export async function GET({ setHeaders }) {
         <description>${websiteDescription}</description>
         <atom:link href="${website}/rss.xml" rel="self" type="application/rss+xml" />
         ${posts
-          .map(
-            (post) =>
-              `
+      .map(
+        (post) =>
+          `
               <item>
                 <guid>${postsUrl}/${post.slug}</guid>
                 <title>${post.title}</title>
@@ -38,8 +38,8 @@ export async function GET({ setHeaders }) {
                 <pubDate>${new Date(post.date).toUTCString()}</pubDate>
             </item>
           `
-          )
-          .join('')}
+      )
+      .join('')}
       </channel>
     </rss>`
 

@@ -8,7 +8,7 @@ import { website } from '$lib/info'
 export const prerender = true
 
 // make sure this matches your post route
-const getPostUrl = (slug) => `${website}/post/${slug}`
+const getPostUrl = (slug) => `${website}/blog/post/${slug}`
 
 /**
  * @type {import('@sveltejs/kit').RequestHandler}
@@ -37,21 +37,20 @@ export async function GET({ setHeaders }) {
       </url>
 
       ${posts
-        .map(
-          (post) => `<url>
+      .map(
+        (post) => `<url>
             <loc>${getPostUrl(post.slug)}</loc>
             <lastmod
-              >${
-                post.updated
-                  ? new Date(post.updated).toISOString()
-                  : new Date(post.date).toISOString()
-              }</lastmod
+              >${post.updated
+            ? new Date(post.updated).toISOString()
+            : new Date(post.date).toISOString()
+          }</lastmod
             >
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
           </url>`
-        )
-        .join('')}
+      )
+      .join('')}
     </urlset>`
 
   return new Response(xml)
